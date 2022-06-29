@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Models
 {
@@ -10,6 +11,8 @@ namespace Shop.Models
         public string ProfilePictureURL { get; set; }
         public string FullName { get; set; }
         public string Biography { get; set; }
+
+        public List<Game> Games { get; set; }
 
     }
 }
