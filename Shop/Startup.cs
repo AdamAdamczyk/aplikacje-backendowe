@@ -60,7 +60,7 @@ namespace Shop
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            AppDbInitializer.Seed(app);
+            //AppDbInitializer.Seed(app);
         }
     }
 }
