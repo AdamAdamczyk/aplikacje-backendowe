@@ -17,7 +17,7 @@ namespace Shop.Controllers
         public async Task<IActionResult> Index()
         {
             var allGameShops = await _context.GameShops.ToListAsync();
-            return View();
+            return View(allGameShops);
         }
     }
 }

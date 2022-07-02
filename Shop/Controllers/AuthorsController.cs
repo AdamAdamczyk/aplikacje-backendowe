@@ -17,7 +17,7 @@ namespace Shop.Controllers
         public IActionResult Index()
         {
             var data = _context.Authors.ToList();
-            return View();
+            return View(data);
         }
     }
 }
