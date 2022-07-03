@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Data;
 using Shop.Data.Services;
+using Shop.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,6 +28,18 @@ namespace Shop.Controllers
         public async Task<IActionResult> Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("FullName,ProfilePictureURL,Biography")]Author author)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(author);
+            }
+
+            _service.Add(author);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

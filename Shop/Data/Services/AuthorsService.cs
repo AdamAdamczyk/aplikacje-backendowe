@@ -17,7 +17,8 @@ namespace Shop.Data.Services
 
         public void Add(Author author)
         {
-            throw new System.NotImplementedException();
+            _context.Authors.Add(author);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
