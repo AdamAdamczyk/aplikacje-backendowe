@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shop.Data;
+using Shop.Data.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,9 @@ namespace Shop
             //DbContext configuration
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString
                 ("DefaultConnectionString")));
+
+            //Konfiguracja serwisów
+            services.AddScoped<IAuthorsService, AuthorsService>();
 
             services.AddControllersWithViews();
         }

@@ -1,23 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Data;
+using Shop.Data.Services;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
     public class AuthorsController : Controller
     {
 
-        private readonly AppDbContext _context;
+        private readonly IAuthorsService _service;
 
-        public AuthorsController(AppDbContext context)
+        public AuthorsController(IAuthorsService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var data = _context.Authors.ToList();
+            var data = await _service.GetAll();
             return View(data);
+        }
+
+
+        //Get: Authors/Create
+        public async Task<IActionResult> Create()
+        {
+            return View();
         }
     }
 }
