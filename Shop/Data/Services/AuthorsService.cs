@@ -15,10 +15,10 @@ namespace Shop.Data.Services
         }
 
 
-        public void Add(Author author)
+        public async Task AddAsync(Author author)
         {
-            _context.Authors.Add(author);
-            _context.SaveChanges();
+            await _context.Authors.AddAsync(author);
+            await _context.SaveChangesAsync();
         }
 
         public void Delete(int id)
@@ -26,20 +26,23 @@ namespace Shop.Data.Services
             throw new System.NotImplementedException();
         }
 
-        public async Task<IEnumerable<Author>> GetAll()
+        public async Task<IEnumerable<Author>> GetAllAsync()
         {
             var result = await _context.Authors.ToListAsync();
             return result;
         }
 
-        public Author GetById(int id)
+        public async Task<Author> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var result = await _context.Authors.FirstOrDefaultAsync(n => n.Id == id);
+            return result;
         }
 
-        public Author Update(int id, Author newAuthor)
+        public async Task<Author> UpdateAsync(int id, Author newAuthor)
         {
-            throw new System.NotImplementedException();
+            _context.Update(newAuthor);
+            await _context.SaveChangesAsync();
+            return newAuthor;
         }
     }
 }

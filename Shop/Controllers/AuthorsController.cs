@@ -19,13 +19,13 @@ namespace Shop.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var data = await _service.GetAll();
+            var data = await _service.GetAllAsync();
             return View(data);
         }
 
 
         //Get: Authors/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -38,7 +38,36 @@ namespace Shop.Controllers
                 return View(author);
             }
 
-            _service.Add(author);
+            await _service.AddAsync(author);
+            return RedirectToAction(nameof(Index));
+        }
+
+        //GET: Authors/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var authorDetails = await _service.GetByIdAsync(id);
+
+            if (authorDetails == null) return View("NotFound");
+            return View(authorDetails);
+        }
+
+        //Get: Authors/Edit
+        public async Task<IActionResult> Edit(int id)
+        {
+            var authorDetails = await _service.GetByIdAsync(id);
+            if (authorDetails == null) return View("NotFound");
+            return View(authorDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,ProfilePictureURL,Biography")] Author author)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(author);
+            }
+
+            await _service.UpdateAsync(id,author);
             return RedirectToAction(nameof(Index));
         }
     }
