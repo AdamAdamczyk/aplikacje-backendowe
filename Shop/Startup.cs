@@ -31,8 +31,10 @@ namespace Shop
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString
                 ("DefaultConnectionString")));
 
-            //Konfiguracja serwisów
+            //Konfiguracja serwisów dla autorów
             services.AddScoped<IAuthorsService, AuthorsService>();
+            //Konfiguracja serwisów dla producentow
+            services.AddScoped<IProducersService, ProducersService>();
 
             services.AddControllersWithViews();
         }

@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Shop.Data.Base;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Models
 {
-    public class Author
+    public class Author:IEntityBase
     {
         [Key]
         public int Id { get; set; }

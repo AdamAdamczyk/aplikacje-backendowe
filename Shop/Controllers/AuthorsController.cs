@@ -33,10 +33,8 @@ namespace Shop.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("FullName,ProfilePictureURL,Biography")]Author author)
         {
-            if(!ModelState.IsValid)
-            {
-                return View(author);
-            }
+            if(!ModelState.IsValid)            
+                return View(author);            
 
             await _service.AddAsync(author);
             return RedirectToAction(nameof(Index));
