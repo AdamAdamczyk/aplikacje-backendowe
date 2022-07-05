@@ -35,6 +35,8 @@ namespace Shop
             services.AddScoped<IAuthorsService, AuthorsService>();
             //Konfiguracja serwisów dla producentow
             services.AddScoped<IProducersService, ProducersService>();
+            //Konfiguracja serwisów dla sklepow
+            services.AddScoped<IGameShopsService, GameShopsService>();
 
             services.AddControllersWithViews();
         }
