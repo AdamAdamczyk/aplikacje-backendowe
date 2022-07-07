@@ -1,5 +1,5 @@
 ﻿@model NewGame 
-@using Shop.Data;
+@using Shop.Data.Enums;
 
 @{ 
     ViewData["Title"] = "Create a new game";
@@ -47,7 +47,7 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="GameCategory" class="control-label"></label>
-                                <select asp-for="GameCategory" class="form-control" asp-items="ViewBag.GameCategory"></select>
+                                <select asp-for="GameCategory" class="form-control" asp-items="Html.GetEnumSelectList<GameCategory>()"></select>
                                 <span asp-validation-for="GameCategory" class="text-danger"></span>
                             </div>
                             <div class="form-group">

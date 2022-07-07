@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
 using Shop.Data.Services;
@@ -29,8 +30,14 @@ namespace Shop.Controllers
         }
 
         //Get: Games/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var gameDropdownData = await _service.GetNewGameDropdownsValues();
+
+            ViewBag.Producers = new SelectList(gameDropdownData.Producers, "Id", "FullName");
+            ViewBag.Authors = new SelectList(gameDropdownData.Authors, "Id", "FullName");
+            ViewBag.GameShops = new SelectList(gameDropdownData.GameShops, "Id", "Name");
+
             return View();
         }
     }
