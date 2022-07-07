@@ -19,51 +19,6 @@ namespace Shop.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AuthorGame", b =>
-                {
-                    b.Property<int>("AuthorsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GamesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AuthorsId", "GamesId");
-
-                    b.HasIndex("GamesId");
-
-                    b.ToTable("AuthorGame");
-                });
-
-            modelBuilder.Entity("GameGameShop", b =>
-                {
-                    b.Property<int>("GameShopsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GamesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GameShopsId", "GamesId");
-
-                    b.HasIndex("GamesId");
-
-                    b.ToTable("GameGameShop");
-                });
-
-            modelBuilder.Entity("GameProducer", b =>
-                {
-                    b.Property<int>("GamesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProducersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GamesId", "ProducersId");
-
-                    b.HasIndex("ProducersId");
-
-                    b.ToTable("GameProducer");
-                });
-
             modelBuilder.Entity("Shop.Models.Author", b =>
                 {
                     b.Property<int>("Id")
@@ -72,12 +27,16 @@ namespace Shop.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Biography")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ProfilePictureURL")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -92,6 +51,9 @@ namespace Shop.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AuthorsId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -99,6 +61,9 @@ namespace Shop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GameCategory")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GameShopsId")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageURL")
@@ -110,7 +75,16 @@ namespace Shop.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int>("ProducersId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorsId");
+
+                    b.HasIndex("GameShopsId");
+
+                    b.HasIndex("ProducersId");
 
                     b.ToTable("Games");
                 });
@@ -123,13 +97,17 @@ namespace Shop.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Localization")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Logo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -144,12 +122,16 @@ namespace Shop.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ProfilePictureURL")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -157,49 +139,46 @@ namespace Shop.Migrations
                     b.ToTable("Producers");
                 });
 
-            modelBuilder.Entity("AuthorGame", b =>
+            modelBuilder.Entity("Shop.Models.Game", b =>
                 {
-                    b.HasOne("Shop.Models.Author", null)
-                        .WithMany()
+                    b.HasOne("Shop.Models.Author", "Authors")
+                        .WithMany("Games")
                         .HasForeignKey("AuthorsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shop.Models.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GameGameShop", b =>
-                {
-                    b.HasOne("Shop.Models.GameShop", null)
-                        .WithMany()
+                    b.HasOne("Shop.Models.GameShop", "GameShops")
+                        .WithMany("Games")
                         .HasForeignKey("GameShopsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shop.Models.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GameProducer", b =>
-                {
-                    b.HasOne("Shop.Models.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Shop.Models.Producer", null)
-                        .WithMany()
+                    b.HasOne("Shop.Models.Producer", "Producers")
+                        .WithMany("Games")
                         .HasForeignKey("ProducersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Authors");
+
+                    b.Navigation("GameShops");
+
+                    b.Navigation("Producers");
+                });
+
+            modelBuilder.Entity("Shop.Models.Author", b =>
+                {
+                    b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("Shop.Models.GameShop", b =>
+                {
+                    b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("Shop.Models.Producer", b =>
+                {
+                    b.Navigation("Games");
                 });
 #pragma warning restore 612, 618
         }

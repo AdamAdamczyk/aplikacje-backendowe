@@ -1,39 +1,39 @@
-﻿using Shop.Data.Enums;
+﻿using Shop.Data;
+using Shop.Data.Base;
+using Shop.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Shop.Models
 {
-    public class Game
+    public class Game:IEntityBase
     {
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Name")]
         public string Name { get; set; }
-
-        [Display(Name = "Description")]
         public string Descritpion { get; set; }
-
-        [Display(Name = "Price")]
         public double Price { get; set; }
-
-        [Display(Name = "Image")]
         public string ImageURL { get; set; }
-
-        [Display(Name = "Date")]
         public DateTime CreateDate { get; set; }
-
-        [Display(Name = "Category")]
         public GameCategory GameCategory { get; set; }
 
 
-        public List<GameShop> GameShops { get; set; }
+        public int AuthorsId { get; set; }
+        [ForeignKey("AuthorsId")]
+        public Author Authors { get; set; }
 
-        public List<Author> Authors { get; set; }
 
-        public List<Producer> Producers { get; set; }
+        public int ProducersId { get; set; }
+        [ForeignKey("ProducersId")]
+        public Producer Producers { get; set; }
 
+        public int GameShopsId { get; set; }
+        [ForeignKey("GameShopsId")]
+        public GameShop GameShops { get; set; }
     }
 }
