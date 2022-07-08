@@ -10,5 +10,8 @@ namespace Shop.Data.Services
         Task<Game> GetGamesByIdAsync(int id);
 
         Task<NewGameDropdowns> GetNewGameDropdownsValues();
+
+        Task AddNewGameAsync(NewGame data);
+        Task UpdateGameAsync(NewGame data);
     }
 }

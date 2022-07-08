@@ -60,6 +60,9 @@ namespace Shop.Migrations
                     b.Property<string>("Descritpion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("GameCategory")
                         .HasColumnType("int");
 
@@ -67,9 +70,6 @@ namespace Shop.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImageURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")

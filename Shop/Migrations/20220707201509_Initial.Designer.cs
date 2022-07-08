@@ -10,7 +10,7 @@ using Shop.Data;
 namespace Shop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220706201015_Initial")]
+    [Migration("20220707201509_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,6 +62,9 @@ namespace Shop.Migrations
                     b.Property<string>("Descritpion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("GameCategory")
                         .HasColumnType("int");
 
@@ -69,9 +72,6 @@ namespace Shop.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImageURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")

@@ -12,21 +12,23 @@ namespace Shop.Models
 {
     public class NewGame
     {
+        public int Id { get; set; }
+
         [Display(Name = "Game name")]
         [Required(ErrorMessage ="Name is required")]        
-        public string Name { get; set; }
+        public String FullName { get; set; }
 
         [Display(Name = "Descritpion name")]
         [Required(ErrorMessage = "Descritpion is required")]
-        public string Descritpion { get; set; }
+        public String Descritpion { get; set; }
 
         [Display(Name = "Price in $")]
         [Required(ErrorMessage = "Price is required")]
-        public double Price { get; set; }
+        public Double Price { get; set; }
 
         [Display(Name = "Game poster URL")]
         [Required(ErrorMessage = "Image is required")]
-        public string ImageURL { get; set; }
+        public String ImageURL { get; set; }
 
         [Display(Name = "Create Date")]
         [Required(ErrorMessage = "Create Date is required")]

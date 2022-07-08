@@ -16,6 +16,24 @@ namespace Shop.Data.Services
             _context = context;
         }
 
+        public async Task AddNewGameAsync(NewGame data)
+        {
+            var newGame = new Game()
+            {
+                FullName = data.FullName,
+                Descritpion = data.Descritpion,
+                Price = data.Price,
+                ImageURL = data.ImageURL,
+                CreateDate = data.CreateDate,
+                GameCategory = data.GameCategory,
+                AuthorsId = data.AuthorsId,
+                ProducersId = data.ProducersId,
+                GameShopsId = data.GameShopsId
+            };
+            await _context.Games.AddAsync(newGame);
+            await _context.SaveChangesAsync();            
+    }
+
         public async Task<Game> GetGamesByIdAsync(int id)
         {
             var gamesDetails = _context.Games
@@ -36,6 +54,25 @@ namespace Shop.Data.Services
             };
             
             return response;
+        }
+
+        public async Task UpdateGameAsync(NewGame data)
+        {
+            var dbGame = await _context.Games.FirstOrDefaultAsync(n => n.Id == data.Id);
+
+            if (dbGame != null)
+            {
+                dbGame.FullName = data.FullName;
+                dbGame.Descritpion = data.Descritpion;
+                dbGame.Price = data.Price;
+                dbGame.ImageURL = data.ImageURL;
+                dbGame.CreateDate = data.CreateDate;
+                dbGame.GameCategory = data.GameCategory;
+                dbGame.AuthorsId = data.AuthorsId;
+                dbGame.ProducersId = data.ProducersId;
+                dbGame.GameShopsId = data.GameShopsId;
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
