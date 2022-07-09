@@ -15,12 +15,8 @@
                             <p class="card-text">
                                 <h5 class="card-title">
                                     @item.FullName
-                                   @* @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                                    {*@
                                         <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
-                                        <a class="text-white float-right" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a> @*Przyciski*@
-                                   @* }*@
-
+                                        <a class="text-white float-right" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a> 
                                 </h5>
                             </p>
                         </div>
@@ -34,7 +30,13 @@
                             </p>
                             <p class="card-text">
                                 <b style="border: 1px solid; background: lightslategrey; padding: 5px; color: #fff; border-radius: 5px; margin-right: 10px;">Producer: </b>
-                                <a asp-controller="Producer" asp-action="Details" asp-route-id="@item.Producers">
+                                <a asp-controller="Producers" asp-action="Details" asp-route-id="@item.ProducersId">
+                                    @item.FullName
+                                </a>
+                            </p>
+                            <p class="card-text">
+                                <b style="border: 1px solid; background: lightslategrey; padding: 5px; color: #fff; border-radius: 5px; margin-right: 10px;">Author: </b>
+                                <a asp-controller="Authors" asp-action="Details" asp-route-id="@item.AuthorsId">
                                     @item.FullName
                                 </a>
                             </p>
@@ -46,7 +48,6 @@
                             <a class="btn btn-outline-primary float-left" asp-action="Details" asp-route-id="@item.Id">
                                 <i class="bi bi-eye-fill"></i> Show Details
                             </a>
-                            &nbsp;
                             <a style="background-color: green; border-color: green;" class="btn btn-success text-white" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@item.Id">
                                 <i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))
                             </a>
