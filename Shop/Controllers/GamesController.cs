@@ -32,7 +32,7 @@ namespace Shop.Controllers
             {
                 var filteredResult = allGames.Where(n => n.FullName.Contains(searchString) || n.Descritpion.Contains(searchString)).ToList();
                 return View("Index", filteredResult);
-            }            
+            }
             return View("Index", allGames);
         }
 
@@ -121,6 +121,25 @@ namespace Shop.Controllers
             }
 
             await _service.UpdateGameAsync(game);
+            return RedirectToAction(nameof(Index));
+        }
+
+        //Get: games/Delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            var gamesDetails = await _service.GetByIdAsync(id);
+
+            if (gamesDetails == null) return View("NotFound");
+            return View(gamesDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var gamesDetails = await _service.GetByIdAsync(id);
+            if (gamesDetails == null) return View("NotFound");
+
+            await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }
